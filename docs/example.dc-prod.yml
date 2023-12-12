@@ -1,0 +1,51 @@
+version: '3.9'
+
+services:
+  backend:
+    container_name: tinder_backend
+    build:
+      context: .
+      dockerfile: ./compose/prod/Dockerfile
+    command: gunicorn config.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - static_volume:/home/app/backend/static_root
+      - media_volume:/home/app/backend/media_root
+    expose:
+      - 8000
+    env_file:
+      - ./env_vars/prod/.env
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15
+    container_name: tinder_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - ./env_vars/prod/.db
+    ports:
+      - 5432:5432
+
+  redis:
+    image: redis:6
+    container_name: tinder_redis_db
+    ports:
+      - "6379:6379"
+
+  nginx:
+    build:
+      context: .
+      dockerfile: ./compose/prod/nginx/Dockerfile
+    volumes:
+      - static_volume:/home/app/backend/static_root
+      - media_volume:/home/app/backend/media_root
+    ports:
+      - 1337:80
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
+  static_volume:
+  media_volume:

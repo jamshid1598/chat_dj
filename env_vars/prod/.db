@@ -1,0 +1,3 @@
+POSTGRES_USER=admin_tinder_db
+POSTGRES_PASSWORD=Ec6axyD=MHqZ
+POSTGRES_DB=tinder_db

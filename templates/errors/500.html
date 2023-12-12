@@ -1,0 +1,53 @@
+{% extends 'index.html' %}
+{% load static %}
+{% load i18n %}
+
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+{% endblock %}
+  
+{% block body %}
+
+    <div class="other__page">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-sm-12 mb-3">
+                    <div class="other__page__content">
+                        <div style="justify-content: center; align-items: center;">
+                            <div style="font-size: 8rem; margin-bottom: 20px;">😕</div>
+                            <h1 style="font-size: 3rem; margin-bottom: 20px;">500</h1>
+                            <h1 style="font-size: 3rem; margin-bottom: 20px;"> {% trans "Ой! Выключение сервера" %} </h1>
+                            <p style="font-size: 1.5rem; margin-bottom: 20px;"> {% trans "Извините, сервер временно недоступен." %} </p>
+                            <a class="btn btn-primary" href="/" style="font-size: 1.25rem; padding: 10px 20px;"> {% trans "Назад"%} </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+
+    <script src="{% static 'js/wow.js' %}"></script>
+
+    <script>
+      wow = new WOW({
+        callback: function (box) {
+          console.log("WOW: animating <" + box.tagName.toLowerCase() + ">");
+        },
+        boxClass: "wow", // default
+        animateClass: "animated", // default
+        offset: 0, // default
+        mobile: true, // default
+        live: true, // default
+      });
+      wow.init();
+    </script>
+
+    <script src="{% static 'js/index.js' %}" async defer></script>
+
+{% endblock %}

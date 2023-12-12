@@ -1,0 +1,35 @@
+version: '3.9'
+
+services:
+  backend:
+    container_name: chatdj_backend_dev
+    build:
+      context: .
+      dockerfile: ./compose/dev/Dockerfile
+    command: python3 manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/usr/src/backend/
+    ports:
+      - 8000:8000
+    env_file:
+      - ./env_vars/dev/.env
+    depends_on:
+      - db
+      - redis
+
+  db:
+    image: postgres:15
+    container_name: chatdj_db_dev
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - ./env_vars/dev/.db
+
+  redis:
+    image: redis:6
+    container_name: chatdj_redis_db_dev
+    ports:
+      - "6379:6379"
+
+volumes:
+  postgres_data:
