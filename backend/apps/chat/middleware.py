@@ -3,10 +3,8 @@ from django.utils.translation import gettext_lazy as _
 from rest_framework.exceptions import AuthenticationFailed
 from urllib.parse import parse_qs
 from channels.db import database_sync_to_async
- 
-User = get_user_model()
- 
- 
+
+
 class TokenAuthentication:
     """
     Simple token based authentication.

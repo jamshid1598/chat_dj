@@ -7,7 +7,7 @@ from django.db import models
 class Conversation(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=128)
-    online = models.ManyToManyField(to=User, blank=True)
+    online = models.ManyToManyField(to=get_user_model(), blank=True)
  
     def get_online_count(self):
         return self.online.count()
@@ -30,10 +30,10 @@ class Message(models.Model):
         Conversation, on_delete=models.CASCADE, related_name="messages"
     )
     from_user = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="messages_from_me"
+        get_user_model(), on_delete=models.CASCADE, related_name="messages_from_me"
     )
     to_user = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="messages_to_me"
+        get_user_model(), on_delete=models.CASCADE, related_name="messages_to_me"
     )
     content = models.CharField(max_length=512)
     timestamp = models.DateTimeField(auto_now_add=True)
