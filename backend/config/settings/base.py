@@ -33,23 +33,28 @@ INSTALLED_APPS = [
 
     'channels',
     'rest_framework',
+    'rest_framework.authtoken',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     'django_filters',
     'corsheaders',
     
     'chat.apps.ChatConfig',
+    'user.apps.UserConfig',
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+AUTH_USER_MODEL = "user.User"
 
 ROOT_URLCONF = "config.urls"
 
@@ -189,7 +194,7 @@ REST_FRAMEWORK = {
         "authentication": "100/hour",
         "verify_authentication": "100/hour",
     },
-    'EXCEPTION_HANDLER': 'config.middleware.errorhandlers.drf_exception_handler',
+    # 'EXCEPTION_HANDLER': 'config.middleware.errorhandlers.drf_exception_handler',
     "DATE_INPUT_FORMATS": ["%d-%m-%Y", "%Y-%M-%D"],
 
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',

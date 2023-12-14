@@ -7,6 +7,8 @@ from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
 
+from user.api.serializers import UserSerializer
+
 
 class CustomObtainAuthTokenView(ObtainAuthToken):
     def post(self, request, *args, **kwargs):
